@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script> -->
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'TTCrownMychewR';
+        }
+        
+        @font-face {
+            font-family: 'TTCrownMychewR';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/TTCrownMychewR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        #contentBox{
+            border-radius: 5px;
+            background-color: skyblue;
+            border: 1px solid rgb(5, 156, 185);
+        }
+        #msgBox{
+            font-family: 'TTCrownMychewR';
+            width: 500px;
+            height: 582.222px;
+            min-height: 600px;
+            
+            /* overflow-y:scroll; */
+            overflow-y: auto;
+            word-break: break-all;
+
+            
+        }
+        
+        #msgBox::-webkit-scrollbar {
+            width: 12px;
+            box-shadow: 3px 3px 3px;
+        }
+        #msgBox::-webkit-scrollbar-track {
+            border-radius: 4px;
+            background-color: rgb(9, 148, 203);
+        }
+        #msgBox::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgb(251, 163, 177);
+        }
+
+        span {
+            padding: 5px;
+            border-radius: 10px;
+        }
+        .meMsg, .meDm{
+            margin-right: 3px;
+            text-align: right;
+            margin-top: 16px;
+            font-size: 20px;
+        }
+        .meMsg > span {
+            background-color: #F6D503;
+        }
+        .othersMsg, .othersDm{
+            margin-left: 3px;
+            text-align: left;
+            margin-top: 16px;
+            font-size: 20px;
+        }
+        .othersMsg > span {
+            background-color: white;
+        }
+        .noticeMsg{
+            font-size: 18px;
+            color:gray;
+            text-align: center;
+            margin-top: 16px;
+        }
+        .meDm > span {
+            background-color: rgb(248, 200, 208);
+        }
+        .othersDm > span{
+            background-color: rgb(248, 77, 106);
+        }
+        #msgForm{
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-evenly;
+            /* background-color: rgb(246, 208, 136); */
+            
+            margin-bottom: 10px;
+        }
+        select{
+            width: 15%;
+            /* min-width: 44px; */
+            border: 1px solid black;
+            transition: all 1s ease-in-out;
+        }
+        select:focus{
+            color: #F6D503;
+            outline: none;
+            border: 2px solid #F6D503 ;
+        }
+        input[name='chatMsg']{
+            width: 360px;
+            transition: all 1s ease-in-out;
+        }
+        input[name='chatMsg']:focus{
+            width: 380px;
+            outline: none;
+            border-radius: 10px;
+            border: 2px solid #F6D503 ;
+        }
+        #msgBtn{
+            all: unset;
+            cursor: pointer;
+            transition: all 1s ease-in-out;
+        }
+        #msgBtn:focus{
+            all: unset;
+            cursor: pointer;
+            color: #F6D503;
+            transform: scale(1.4);
+        }
+        #dm{
+            color: red;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 5px;
+            height: 17.778px;
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/b570f12f3a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>채팅 입장</h1>
+    
+    <form action="" id="enterForm"> 
+        이름: <input type="text" name="chatName" required>
+        <!-- &nbsp; -->
+        방 이름: <input type="text" name="roomName"> 
+        <!-- &nbsp; -->
+        <button id="enterBtn">입장</button>
+    </form>
+    
+
+    <div id="contentBox">
+        <div id="roomBox"></div>
+        <div id="dm"></div>
+        <div id="msgBox">
+        </div>
+
+        <form action="" id="msgForm">
+            <select name="chatUser" id="chatUsers">
+                <option value="all">all</option>
+            </select>
+            <input type="text" name="chatMsg">
+            <button id="msgBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/public/js/chats.js"></script>
+</body>
+</html>
